@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Daniel-Knights/note-boi-note-schema/note-schema.json",
+  "title": "NoteBoi Note",
+  "description": "JSON Schema for NoteBoi note format",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "Unique identifier for the note in UUID v4 format"
+    },
+    "timestamp": {
+      "type": "number",
+      "description": "Unix timestamp in milliseconds"
+    },
+    "content": {
+      "type": "object",
+      "properties": {
+        "delta": {
+          "type": "object",
+          "properties": {
+            "ops": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "insert": {
+                    "oneOf": [
+                      { "type": "string" },
+                      { "type": "object" }
+                    ],
+                    "description": "Text to insert or embed object"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "description": "Optional formatting attributes"
+                  },
+                  "delete": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "Number of characters to delete"
+                  },
+                  "retain": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "Number of characters to retain"
+                  }
+                },
+                "oneOf": [
+                  { "required": ["insert"] },
+                  { "required": ["delete"] },
+                  { "required": ["retain"] }
+                ]
+              },
+              "description": "Array of Quill Delta operations"
+            }
+          },
+          "required": ["ops"],
+          "description": "Quill Delta format representing rich text content"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the note"
+        },
+        "body": {
+          "type": "string",
+          "description": "Body text of the note"
+        }
+      },
+      "required": ["delta", "title", "body"],
+      "description": "Content of the note"
+    }
+  },
+  "required": ["uuid", "timestamp", "content"]
+}
