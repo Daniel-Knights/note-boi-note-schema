@@ -2,6 +2,7 @@
   "name": "note-boi-note-schema",
   "version": "1.0.0",
   "description": "JSON Schema for NoteBoi notes",
+  "type": "module",
   "main": "index.js",
   "directories": {
     "example": "examples"
