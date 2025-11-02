@@ -1,0 +1,19 @@
+{
+  "name": "note-boi-note-schema",
+  "version": "1.0.0",
+  "description": "JSON Schema for NoteBoi notes",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "validate": "node validate.js",
+    "test": "node validate.js examples/example-note.json && node validate.js examples/example-note-rich-text.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ajv": "^8.17.1"
+  }
+}
